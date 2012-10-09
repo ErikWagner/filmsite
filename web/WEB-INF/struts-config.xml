@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    <form-beans></form-beans>
+    <global-exceptions></global-exceptions>
+
+    <action-mappings>
+        <action path="/home" type="com.netbiscuits.mvcdemo.struts.action.IndexAction">
+            <forward name="desktop" path="/tactile/movielist.jsp"/>
+            <forward name="feature" path="/biscuitml/home.jsp"/>           
+            <forward name="touch" path="/tactile/movielist.jsp"/>
+        </action>
+        <action path="/home_ls" type="com.netbiscuits.mvcdemo.struts.action.IndexAction">
+            <forward name="feature" path="/biscuitml/home_ls.jsp"/>           
+        </action>
+        <action path="/details" type="com.netbiscuits.mvcdemo.struts.action.DetailAction">
+            <forward name="desktop" path="/tactile/moviedetails.jsp"/>
+            <forward name="feature" path="/biscuitml/detail.jsp"/>     
+            <forward name="touch" path="/tactile/moviedetails.jsp"/>
+            <forward name="mobileRedirect" path="/redirect.do" redirect="true"/>
+        </action>
+        <action path="/details_ls" type="com.netbiscuits.mvcdemo.struts.action.DetailAction">
+            <forward name="feature" path="/biscuitml/detail.jsp"/>           
+        </action>
+        <action path="/loadMovie" type="com.netbiscuits.mvcdemo.struts.action.DetailAction">
+            <forward name="desktop" path="/tactile/moviedetails.jsp"/>
+            <forward name="feature" path="/tactile/moviedetails.jsp"/>     
+            <forward name="touch" path="/tactile/moviedetails.jsp"/>
+        </action>
+        <action path="/movieStatsInc" type="com.netbiscuits.mvcdemo.struts.action.DetailAction">
+            <forward name="desktop" path="/includes/movieStats.inc.jsp"/>
+            <forward name="feature" path="/includes/movieStats.inc.jsp"/>     
+            <forward name="touch" path="/includes/movieStats.inc.jsp"/>
+        </action>
+    </action-mappings>   
+</struts-config>
+

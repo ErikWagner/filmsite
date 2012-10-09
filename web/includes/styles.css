@@ -1,0 +1,38 @@
+/* 
+    Document   : styles
+    Created on : Sep 19, 2012, 3:10:52 PM
+    Author     : ewagner
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+
+.black {
+    background: #000;
+}
+
+.menuitem {
+    margin: 0;
+    padding: 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(white));
+    border-bottom: 1px solid #bbbbbb;
+}
+
+.multiview {
+    margin: 0;
+    padding: 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(white));
+}
+
+.moviePoster {
+    border-top: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+}
+
+
+
+

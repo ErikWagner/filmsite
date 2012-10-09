@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.netbiscuits.com/schema/netbiscuits-tactile.xsd" uri="www.netbiscuits.com/schema/netbiscuits-tactile.xsd"/>
+    <system systemId="http://www.netbiscuits.com/schema/tactile-base.xsd" uri="www.netbiscuits.com/schema/tactile-base.xsd"/>
+</catalog>

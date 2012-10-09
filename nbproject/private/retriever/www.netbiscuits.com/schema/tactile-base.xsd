@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 sp1 (x64) (http://www.altova.com) by Martin Suess (Netbiscuits GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.netbiscuits.com/schema/tactile" xmlns:html="http://www.netbiscuits.com/schema/html-subset" targetNamespace="http://www.netbiscuits.com/schema/tactile" elementFormDefault="unqualified">
+	<xs:complexType name="LayoutType">
+		<xs:annotation>
+			<xs:documentation>Type definition for tactile layout element.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="layout" type="LayoutType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Represents a tactile layout element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="view" type="ViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile view element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="multiview" type="MultiViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile multiview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="flexview" type="FlexViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile flexview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="gridview" type="GridViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile gridview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:choice>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attributeGroup ref="UIDimensionRequiredAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attribute name="template" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Predefined layout templates (top, bottom, left, right, center).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for tactile view element.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="view" type="ViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile view element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="multiview" type="MultiViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile multiview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="flexview" type="FlexViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile flexview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="gridview" type="GridViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile gridview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:choice>
+				<xs:group ref="biscuitsGroup" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:choice>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attributeGroup ref="UIScrollerAttributes"/>
+		<xs:attribute name="content" type="xs:string" default="biscuitml">
+			<xs:annotation>
+				<xs:documentation>Content type (biscuitml or html)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="MultiViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for tactile multiview element.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="view" type="ViewType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Represents a tactile view element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attribute name="selectedindex" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Numeric value of selected view index (0 based).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="swipe" type="DirectionEnum" default="horizontal">
+			<xs:annotation>
+				<xs:documentation>Expression to enable swiping through view items.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="onswitch" type="EventExpression">
+			<xs:annotation>
+				<xs:documentation>MultiView onswitch event is fired when the current visible view is changed.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlexViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for  tactile flexview element.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="item" type="FlexItemType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Represents a tactile flexitem element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attributeGroup ref="UIScrollerAttributes"/>
+		<xs:attribute name="flexflow" type="DirectionEnum" default="vertical">
+			<xs:annotation>
+				<xs:documentation>Flow direction of flexitems (horizontal or vertical)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexdimension" type="DimensionEnum">
+			<xs:annotation>
+				<xs:documentation>Flexible dimension of flexitems (width or height)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-gap" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Gap between flexitems (number)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-width" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-height" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-minwidth" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem minwidth (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-minheight" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem minheight (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlexItemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for  tactile flexitem element.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="view" type="ViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile view element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="multiview" type="MultiViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile multiview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="flexview" type="FlexViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile flexview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="gridview" type="GridViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>epresents a tactile gridview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:group ref="biscuitsGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attribute name="content" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Content type (biscuitml or html)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GridViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for  tactile gridview element.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="item" type="GridItemType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Represents a tactile griditem element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attributeGroup ref="UIScrollerAttributes"/>
+		<xs:attribute name="gridflow" type="DirectionEnum" default="vertical">
+			<xs:annotation>
+				<xs:documentation>Flow direction of grid(horizontal or vertical)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="items-width" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for item width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="items-height" type="LayoutExpression">
+			<xs:annotation>
+				<xs:documentation>Expression for item height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="items-hgap" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Horizontal gap between items (number)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="items-vgap" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Vertical gap between items (number)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="align" type="AlignEnum" default="left">
+			<xs:annotation>
+				<xs:documentation>Horizontal alignment of the gridview in relation to the parent element. Possible values are left, center, right.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GridItemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Type definition for  tactile griditem element.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="view" type="ViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile view element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="multiview" type="MultiViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile multiview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="flexview" type="FlexViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile flexview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="gridview" type="GridViewType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Represents a tactile gridview element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:group ref="biscuitsGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attributeGroup ref="TactileGlobalAttributes"/>
+		<xs:attribute name="content">
+			<xs:annotation>
+				<xs:documentation>Content type (biscuitml or html)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="biscuitContainer">
+		<xs:annotation>
+			<xs:documentation>Type definition for biscuit container element.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID">
+			<xs:annotation>
+				<xs:documentation>Unique identifier.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="class" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>CSS class name for target markup.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="test" type="TestExpression">
+			<xs:annotation>
+				<xs:documentation>Test condition.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="biscuit">
+		<xs:annotation>
+			<xs:documentation>Wildcard type definition for biscuitML classic content.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID">
+			<xs:annotation>
+				<xs:documentation>Unique identifier.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="class" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>CSS class name for target markup.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="test" type="TestExpression">
+			<xs:annotation>
+				<xs:documentation>Test condition.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute namespace="##any" processContents="lax"/>
+	</xs:complexType>
+	<xs:group name="biscuitsGroup">
+		<xs:annotation>
+			<xs:documentation>Group definition of allowed biscuits in tactile mode.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ADBANNER" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Advertising section with image or text.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ANALYTICS" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add tracking to the page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ARTICLE" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Image and structured text/richtext.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FORM" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Web form used to collect user input.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IMAGE" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Standalone image or imageset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LIST" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of items with image or text.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LOCATION" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add POI and Auto-Location functionality to your page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAP" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Show a map image from an external map provider.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MEDIA" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Creates an embedded video or audio that plays one media item from the Media Repository.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SEPARATOR" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Used to horizontally split page sections.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TABLE" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>For structured content.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TEXT" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Text/richtext </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TAGCLOUD" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Text tags in different sizes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TEASER" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Used for news-teaser with image and brief text/richtext.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CONTENTLIST" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Media list, dynamically read from Netbiscuits Media Repository.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COMMENT" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add an XML comment to the rendered page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PLAINHTML" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Subset of HTML (includes almost every element that fits into a body element except iframe, script, object and embed).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="POILIST" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add a list of POIs to your page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="POIITEM" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add a detailed view of one POI to your page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RSSLIST" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Display an RSS feed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RSSITEM" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Display a single RSS feed item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TICKER" type="biscuit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Add a TICKER which creates sideways scrolling richttext.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:attributeGroup name="UIContainerAttributes">
+		<xs:annotation>
+			<xs:documentation>Attribute group for tactile elements representing tactile objects derived from tactile.foundation.UIContainer base class.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="top" type="LayoutExpression" default="0">
+			<xs:annotation>
+				<xs:documentation>Expression for top dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="left" type="LayoutExpression" default="0">
+			<xs:annotation>
+				<xs:documentation>Expression for left dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="visible" type="VisbilityExpression" default="true">
+			<xs:annotation>
+				<xs:documentation>Expression for visibility (boolean value or conditional boolean e.g.: visible="portrait:true, landscape:false"). The intension of this attribute is to set the visible property based on a condition (landscape or portrait). Note: If this expression evaluates always to false, the element will never be visible.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="effect-type" type="EffectTyeEnum">
+			<xs:annotation>
+				<xs:documentation>Effect animation type.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="effect-duration" type="xs:integer" default="100">
+			<xs:annotation>
+				<xs:documentation>Duration of the animation in milliseconds.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="effect-transition" type="EffectTransitionEnum">
+			<xs:annotation>
+				<xs:documentation>Transition timing function for the effect.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="display" type="DisplayEnum" default="block">
+			<xs:annotation>
+				<xs:documentation>Display style property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="overflow" type="OverflowEnum" default="visible">
+			<xs:annotation>
+				<xs:documentation>Overflow style property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="position" type="PositionEnum" default="absolute">
+			<xs:annotation>
+				<xs:documentation>Position style property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="float" type="FloatEnum" default="none">
+			<xs:annotation>
+				<xs:documentation>Float style property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="opacity" default="100">
+			<xs:annotation>
+				<xs:documentation>Opacity style property (mumeric value between 0 and 100)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="zindex" type="xs:integer" default="1">
+			<xs:annotation>
+				<xs:documentation>z-index style property (mumeric value between 1 and 1-999999999)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="UIScrollerAttributes">
+		<xs:annotation>
+			<xs:documentation>Attribute group for scrollable elements.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="scroll" type="ScrollEnum" default="disabled">
+			<xs:annotation>
+				<xs:documentation>Enable scrolling of the view.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="scrollbar-direction" type="ScrollEnum" default="vertical">
+			<xs:annotation>
+				<xs:documentation>If scroll is enabled scrollbar is also enabled by default. To disable set scrollbar-direction="disabled".</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="scrollbar-color" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Color of the scroll bar.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="scrollbar-weight" type="xs:integer" default="5">
+			<xs:annotation>
+				<xs:documentation>Thickness of the scroll bar.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="UIDimensionRequiredAttributes">
+		<xs:annotation>
+			<xs:documentation>Attribute group for required box dimensions.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="width" type="LayoutExpression" use="required">
+			<xs:annotation>
+				<xs:documentation>Expression for width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="height" type="LayoutExpression" use="required">
+			<xs:annotation>
+				<xs:documentation>Expression for height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="UIDimensionOptionalAttributes">
+		<xs:annotation>
+			<xs:documentation>Attribute group for optional box dimensions.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="width" type="LayoutExpression" default="parent.width">
+			<xs:annotation>
+				<xs:documentation>Expression for width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="height" type="LayoutExpression" default="parent.height">
+			<xs:annotation>
+				<xs:documentation>Expression for height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TactileGlobalAttributes">
+		<xs:annotation>
+			<xs:documentation>Global attribute group for tactile elements.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:ID">
+			<xs:annotation>
+				<xs:documentation>Unique identifier. Also used in target markup.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="class" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>CSS class name for target markup.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<!-- 		<xs:attribute name="test" type="xs:string"/> -->
+		<xs:attribute name="ontap" type="EventExpression">
+			<xs:annotation>
+				<xs:documentation>Event attribute expression for tap event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ondoubletap" type="EventExpression">
+			<xs:annotation>
+				<xs:documentation>Event attribute expression for doubletap event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="test" type="TestExpression">
+			<xs:annotation>
+				<xs:documentation>Test condition. Will be evaluated on the server side and defines whether or not the element is included in the output markup.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:simpleType name="EventExpression">
+		<xs:annotation>
+			<xs:documentation>The value of an event attribute will use an expression syntax to encode the correlating JavaScript.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TestExpression">
+		<xs:annotation>
+			<xs:documentation>Control the rendering of elements by testing for presence or absence, or a specific value of any URL-Parameter or a session value your application contains, as well as a set of device specific parametes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="VisbilityExpression">
+		<xs:annotation>
+			<xs:documentation>Expression for visibility.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="LayoutExpression">
+		<xs:annotation>
+			<xs:documentation>The size and position of an layout element is specified by the width, height, top and left attributes. These coordinates are also defining the "box" of the layout. Each "box" attribute can have an expression for calculating it's value. The keyword "parent" can be used inside the expression to refer to the parent box dimensions. The expressions can contain conditions with different values for landscape and portrait mode.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="ScrollEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration for scroller attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="vertical"/>
+			<xs:enumeration value="horizontal"/>
+			<xs:enumeration value="landscape: horizontal, portrait: vertical"/>
+			<xs:enumeration value="landscape: vertical, portrait: horizontal"/>
+			<xs:enumeration value="both"/>
+			<xs:enumeration value="disabled"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EffectTyeEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of available effect types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="slide"/>
+			<xs:enumeration value="fade"/>
+			<xs:enumeration value="expand"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EffectTransitionEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of available transition timing funcions.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="easeIn"/>
+			<xs:enumeration value="easeInOut"/>
+			<xs:enumeration value="easeOut"/>
+			<xs:enumeration value="easeOutIn"/>
+			<xs:enumeration value="linear"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DisplayEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of display CSS style properties.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="block"/>
+			<xs:enumeration value="inline"/>
+			<xs:enumeration value="inherit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OverflowEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of overflow CSS style properties.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="hidden"/>
+			<xs:enumeration value="visible"/>
+			<xs:enumeration value="inherit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PositionEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of position CSS style properties.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="absolute"/>
+			<xs:enumeration value="relative"/>
+			<xs:enumeration value="static"/>
+			<xs:enumeration value="inherit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FloatEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of float CSS style properties.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="left"/>
+			<xs:enumeration value="right"/>
+			<xs:enumeration value="inherit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DirectionEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of flow direction settings.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="vertical"/>
+			<xs:enumeration value="horizontal"/>
+			<xs:enumeration value="landscape: vertical, portrait: horizontal"/>
+			<xs:enumeration value="landscape: horizontal, portrait: vertical"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DimensionEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of dimension values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="width"/>
+			<xs:enumeration value="height"/>
+			<xs:enumeration value="landscape: width, portrait: height"/>
+			<xs:enumeration value="landscape: height, portrait: width"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AlignEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of align values</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="left"/>
+			<xs:enumeration value="center"/>
+			<xs:enumeration value="right"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
